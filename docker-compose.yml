@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  webserver:
+    container_name: webserver_geekbrains
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    environment:
+      XDEBUG_CONFIG: remote_host=host.docker.internal
+      PHP_IDE_CONFIG: serverName=localhost
+    ports:
+    - 80:80
+    volumes:
+    - ./:/var/www
+    links:
+    - db
+    depends_on:
+    - db
+
+  db:
+    container_name: mysql_geekbrains
+    image: 'mysql:latest'
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+    - 9513:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: yii2basic
+      MYSQL_USER: mysqluser
+      MYSQL_PASSWORD: mysqluser
+    volumes:
+    - ./docker/database:/var/lib/mysql
