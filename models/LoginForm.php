@@ -35,6 +35,21 @@ class LoginForm extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Login',
+            'password' => 'Password',
+            'rememberMe' => 'Забыть меня, забыть.'
+        ];
+    }
+
+//    public function geekbrainsMethod()
+//    {
+//        $model =
+//
+//    }
+
     /**
      * Validates the password.
      * This method serves as the inline validation for password.

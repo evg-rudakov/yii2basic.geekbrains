@@ -1,0 +1,33 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: evg
+ * Date: 03/07/2019
+ * Time: 19:17
+ */
+namespace app\controllers;
+
+use app\models\Activity;
+
+class ActivityController extends \yii\web\Controller
+{
+
+    //http://yii2basic.geekbrains/activity/create
+    public function actionView()
+    {
+        $model = new Activity();
+        $arrayToLoad = ['Activity' => Activity::getValues()];
+        $model->load($arrayToLoad);
+        $model->attributes = Activity::getValues();
+
+        $testArray = $model->attributes;
+
+
+       return $this->renderPartial('view', [
+           'model' => $model,
+           'testArray' => $testArray,
+       ]);
+
+    }
+
+}

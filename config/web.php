@@ -5,6 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'language'=>'ru',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -49,6 +50,14 @@ $config = [
             'rules' => [
             ],
         ],
+        'messenger'=>[
+            'class'=>\app\components\MessengerComponent::class
+        ],
+    ],
+    'modules' => [
+        'statistic' => [
+            'class' => app\modules\statistic\Module::class,
+        ],
     ],
     'params' => $params,
 ];
@@ -59,7 +68,7 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['*'],
     ];
 
     $config['bootstrap'][] = 'gii';
