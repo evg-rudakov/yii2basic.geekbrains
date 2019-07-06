@@ -67,7 +67,7 @@ AppAsset::register($this);
         <code>
             <?php
             //вывод прошлой страницы
-            echo \Yii::$app->messenger->displayPrevPage()
+            echo \Yii::$app->studyComponent->getPrevPage()
             ?>
         </code>
         <?= $content ?>

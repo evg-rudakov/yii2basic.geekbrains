@@ -50,8 +50,8 @@ $config = [
             'rules' => [
             ],
         ],
-        'messenger'=>[
-            'class'=>\app\components\MessengerComponent::class
+        'studyComponent'=>[
+            'class'=>\app\components\StudyComponent::class
         ],
     ],
     'modules' => [

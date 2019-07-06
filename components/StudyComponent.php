@@ -10,12 +10,17 @@ namespace app\components;
 
 use yii\base\Component;
 
-class MessengerComponent extends Component
+class StudyComponent extends Component
 {
 
     public $message;
 
-    public function displayPrevPage()
+
+    /**
+     * Метод получения прошлой страницы, на которой был пользователь
+     * @return string
+     */
+    public function getPrevPage()
     {
         //получим прошлую страницу
         $prevPath = \Yii::$app->session->get('currentPage', null);
