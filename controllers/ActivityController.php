@@ -24,11 +24,26 @@ class ActivityController extends \yii\web\Controller
         $testArray = $model->attributes;
 
 
-       return $this->renderPartial('view', [
+       return $this->render('view', [
            'model' => $model,
            'testArray' => $testArray,
        ]);
+    }
 
+    public function actionIndex()
+    {
+        $model = new Activity();
+        $arrayToLoad = ['Activity' => Activity::getValues()];
+        $model->load($arrayToLoad);
+        $model->attributes = Activity::getValues();
+
+        $testArray = $model->attributes;
+
+
+        return $this->render('view', [
+            'model' => $model,
+            'testArray' => $testArray,
+        ]);
     }
 
 }

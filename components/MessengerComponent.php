@@ -15,15 +15,22 @@ class MessengerComponent extends Component
 
     public $message;
 
-    public function init()
+    public function displayPrevPage()
     {
-        parent::init();
-        $this->message = 'Text';
+        //получим прошлую страницу
+        $prevPath = \Yii::$app->session->get('currentPage', null);
+
+        //если мы зашли первый раз, то прошлую страницы нет.
+        if (!isset($prevPath)) {
+            $prevPath = 'Предыдущей страницы нет';
+        }
+
+        //сохраним в сессию текущую страницу, чтобы когда мы перешли на следующую страницу, получить ее как прошлую
+        \Yii::$app->session->set('currentPage', $_SERVER['REQUEST_URI']);
+
+        //вернем прошлую страницу
+        return $prevPath;
     }
 
-    public function display($message)
-    {
-        return mb_strtoupper($message);
-    }
 
 }
