@@ -8,6 +8,7 @@
 namespace app\controllers;
 
 use app\models\Activity;
+use yii\helpers\ArrayHelper;
 
 class ActivityController extends \yii\web\Controller
 {
@@ -27,6 +28,14 @@ class ActivityController extends \yii\web\Controller
            'model' => $model,
            'testArray' => $testArray,
        ]);
+
+    }
+
+
+    public function actionTest()
+    {
+        return $this->render('test');
+
 
     }
 
