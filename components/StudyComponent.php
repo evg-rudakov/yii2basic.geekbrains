@@ -10,6 +10,10 @@ namespace app\components;
 
 use yii\base\Component;
 
+/**
+ * Class StudyComponent
+ * @package app\components
+ */
 class StudyComponent extends Component
 {
 
