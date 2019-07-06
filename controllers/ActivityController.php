@@ -31,12 +31,4 @@ class ActivityController extends \yii\web\Controller
 
     }
 
-
-    public function actionTest()
-    {
-        return $this->render('test');
-
-
-    }
-
 }
