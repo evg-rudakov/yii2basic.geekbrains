@@ -1,75 +1,60 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: evg
- * Date: 03/07/2019
- * Time: 19:43
- */
 
 namespace app\models;
 
-class Activity extends \yii\base\Model
+use Yii;
+
+/**
+ * This is the model class for table "activity".
+ *
+ * @property int $id
+ * @property string $title
+ * @property string $body
+ * @property int $start_date
+ * @property int $end_date
+ * @property int $user_id
+ * @property boolean $cycle
+ * @property boolean $main
+ */
+
+
+class Activity extends \yii\db\ActiveRecord
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
-    public $title;
-
-    /**
-     * @var string
-     */
-    public $body;
-
-    /**
-     * Unix Timestamp
-     * @var int
-     */
-    public $startDay;
-
-    /**
-     * Unix Timestamp
-     * @var int
-     */
-    public $endDay;
-
-
-    /**
-     * @var int
-     */
-    public $idAuthor;
-
-    public function attributeLabels()
+    public static function tableName()
     {
-        return [
-            'title'=>'Название',
-            'startDay' => 'Дата начала',
-            'endDay' => 'Дата конца',
-            'idAuthor' => 'Автор',
-            'body' => 'Описание события',
-        ];
+        return 'activity';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
-            [['title', 'startDay', 'endDay', 'idAuthor', 'body'], 'safe']
+            [['body', 'start_date', 'end_date','title' ], 'required'],
+            [['cycle', 'main'], 'boolean'],
+            [['start_date', 'end_date', 'user_id'], 'integer'],
+            [['title', 'body'], 'string', 'max' => 255],
         ];
     }
 
-    public static function getValues(){
-        return [
-            'title'=>'Урок 2',
-            'startDay' => time(),
-            'endDay' => time(),
-            'idAuthor' => '123',
-            'body' => 'Yii2 Basic Lesson 2. MVC',
-        ];
-    }
-
-    public function getPrice()
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
     {
-        return 'какая цена? мы об активностях говорим. Они бесценны';
+        return [
+            'id' => 'ID',
+            'title' => 'Title',
+            'body' => 'Body',
+            'start_date' => 'Start Date',
+            'end_date' => 'End Date',
+            'user_id' => 'User ID',
+            'cycle' => 'Cycle',
+            'main' => 'Main',
+        ];
     }
-
-
 }
