@@ -44,11 +44,6 @@ class LoginForm extends Model
         ];
     }
 
-//    public function geekbrainsMethod()
-//    {
-//        $model =
-//
-//    }
 
     /**
      * Validates the password.

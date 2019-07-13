@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\Activity;
+use app\models\Calendar;
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -19,18 +22,26 @@ class SiteController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'class' => AccessControl::class,
+                'only' => ['index', 'login', 'contact'],
                 'rules' => [
                     [
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    [
+                        'actions' => ['contact'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['login'],
+                        'allow' => true,
+                    ],
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'logout' => ['post'],
                 ],
@@ -84,6 +95,34 @@ class SiteController extends Controller
         return $this->render('login', [
             'model' => $model,
         ]);
+    }
+
+    public function actionAddAdmin() {
+        $user = User::find()->where(['username' => 'admin'])->one();
+        if (empty($user)) {
+            $user = new User();
+            $user->username = 'admin';
+            $user->email = 'admin@admin.ru';
+            $user->setPassword('admin');
+            $user->generateAuthKey();
+            if ($user->save()) {
+                echo 'good';
+                $adminRole = Yii::$app->authManager->getRole('admin');
+                Yii::$app->authManager->assign($adminRole, $user->id);
+            } else {
+                var_dump($user->errors);
+            }
+        } else {
+            $adminRole = Yii::$app->authManager->getRole('admin');
+            Yii::$app->authManager->assign($adminRole, $user->id);
+            echo 'админ уже есть';
+        }
+    }
+
+    public function actionTest() {
+       $activity = Activity::find()->where(['id'=>13])->one();
+       var_dump($activity->users);
+die();
     }
 
     /**

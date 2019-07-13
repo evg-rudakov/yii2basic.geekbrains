@@ -15,6 +15,7 @@ use Yii;
  * @property int $user_id
  * @property boolean $cycle
  * @property boolean $main
+ * @property Calendar[] $calendarRecords
  */
 
 
@@ -56,5 +57,18 @@ class Activity extends \yii\db\ActiveRecord
             'cycle' => 'Cycle',
             'main' => 'Main',
         ];
+    }
+
+
+    public function getUsers()
+    {
+        $this->hasMany(User::class, ['id'=>'user_id'])
+            ->via('calendarRecords');
+    }
+
+
+    public function getCalendarRecords()
+    {
+        return $this->hasMany(Calendar::class, ['activity_id' => 'id']);
     }
 }
