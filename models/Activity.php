@@ -62,7 +62,7 @@ class Activity extends \yii\db\ActiveRecord
 
     public function getUsers()
     {
-        $this->hasMany(User::class, ['id'=>'user_id'])
+        return $this->hasMany(User::class, ['id' => 'user_id'])
             ->via('calendarRecords');
     }
 
