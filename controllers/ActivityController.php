@@ -31,9 +31,13 @@ class ActivityController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['index', 'create', 'update', 'view'],
+                        'actions' => ['index', 'create', 'update', 'view', 'delete'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['admin'],
+                    ],
+                    [
+                        'actions' => ['error'],
+                        'allow' => true,
                     ],
                 ],
             ],

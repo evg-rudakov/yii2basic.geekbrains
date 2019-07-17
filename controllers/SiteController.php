@@ -31,7 +31,7 @@ class SiteController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['contact'],
+                        'actions' => ['test'],
                         'allow' => true,
                     ],
                     [
@@ -121,9 +121,11 @@ class SiteController extends Controller
         }
     }
 
-    public function actionTest() {
-       $activity = Activity::find()->where(['id'=>13])->one();
-       var_dump($activity->users);
+    public function actionTest()
+    {
+        $activity = Activity::find()->where(['id' => 13])->one();
+        var_dump($activity->users);
+        die();
     }
 
     public function actionSignUp()

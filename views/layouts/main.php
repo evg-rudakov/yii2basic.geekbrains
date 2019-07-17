@@ -72,7 +72,7 @@ AppAsset::register($this);
         <code>
             <?php
             //вывод прошлой страницы
-            echo \Yii::$app->studyComponent->getPrevPage()
+            echo \Yii::$app->studyComponent->getCurrentPage()
             ?>
         </code>
         <?= $content ?>

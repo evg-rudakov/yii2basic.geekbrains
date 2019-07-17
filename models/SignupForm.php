@@ -32,7 +32,7 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => User::class, 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
             ['email', 'trim'],
             ['email', 'required'],
@@ -60,6 +60,8 @@ class SignupForm extends Model
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
+        $user->trigger(User::EVENT_USER_SET_NET_PASSWORD);
+
         $user->generateAuthKey();
 
         if ($user->save()) {
@@ -67,6 +69,8 @@ class SignupForm extends Model
 
             return $user;
         }
+
+
         return null;
     }
 }
