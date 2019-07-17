@@ -48,6 +48,9 @@ class ActivitySearch extends Activity
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 3,
+            ],
         ]);
 
         $this->load($params);

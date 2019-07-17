@@ -33,7 +33,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => \kartik\date\DatePicker::widget([
                     'model' => $searchModel,
                     'attribute' => 'start_date',
-                    'name' => 'start_date',
                     'language' => 'ru',
                     'pluginOptions' => [
                         'autoclose' => true,
@@ -48,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'end_date:datetime',
             'user_id',
             'cycle:boolean',
-            'main',
+            'main:boolean',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

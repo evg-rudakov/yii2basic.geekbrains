@@ -29,14 +29,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'title',
             'body',
-            'start_date',
-            'end_date',
-            'user_id',
-            'cycle',
-            'main',
+            [
+                'attribute'=>'start_date',
+                'label'=>'Дата начала активности',
+                'value'=>function($model) {
+                    return Yii::$app->formatter->asDatetime($model->start_date);
+                }
+            ],
+            'end_date:datetime',
+            [
+                'label'=>'Повторяется',
+                'value'=>function($model){
+                    return Yii::$app->formatter->asBoolean($model->cycle);
+                }
+            ],
+            'main:boolean',
         ],
     ]) ?>
 

@@ -41,6 +41,11 @@ class StudyComponent extends Component
         return $prevPath;
     }
 
+    public function getCurrentPage()
+    {
+        return $_SERVER['REQUEST_URI'];
+    }
+
 
 
 }

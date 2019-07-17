@@ -16,6 +16,7 @@ use Yii;
  * @property boolean $cycle
  * @property boolean $main
  * @property Calendar[] $calendarRecords
+ * @property User[] $users
  */
 
 
