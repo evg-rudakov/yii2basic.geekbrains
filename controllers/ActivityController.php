@@ -29,7 +29,7 @@ class ActivityController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['index', 'create', 'update', 'view', 'delete', 'error'],
+                'only' => ['index', 'create', 'update', 'view', 'delete'],
                 'rules' => [
                     [
                         'actions' => ['index', 'create', 'update', 'view', 'delete'],
