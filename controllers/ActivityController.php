@@ -29,17 +29,23 @@ class ActivityController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::class,
+                'only' => ['index', 'create', 'update', 'view', 'delete', 'error'],
                 'rules' => [
                     [
                         'actions' => ['index', 'create', 'update', 'view', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                    [
-                        'actions' => ['error'],
-                        'allow' => true,
-                    ],
                 ],
+            ],
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
             ],
         ];
     }
