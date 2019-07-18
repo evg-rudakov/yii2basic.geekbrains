@@ -65,7 +65,6 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
-        $model->detachBehavior(User::TIME_BEHAVIOR_NAME);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
