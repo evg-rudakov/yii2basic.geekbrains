@@ -27,6 +27,7 @@ class ActivityController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+
             'access' => [
                 'class' => AccessControl::class,
                 'only' => ['index', 'create', 'update', 'view', 'delete'],
@@ -34,21 +35,13 @@ class ActivityController extends Controller
                     [
                         'actions' => ['index', 'create', 'update', 'view', 'delete'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['admin'],
                     ],
                 ],
             ],
         ];
     }
 
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-        ];
-    }
 
     /**
      * Lists all Activity models.

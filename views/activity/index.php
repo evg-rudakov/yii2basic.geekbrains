@@ -44,8 +44,64 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Yii::$app->formatter->asDate($model->start_date, 'php:d.m.Y');
                 }
             ],
-            'end_date:datetime',
-            'user_id',
+            [
+                'attribute' => 'end_date',
+                'filter' => \kartik\date\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'end_date',
+                    'language' => 'ru',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'todayHighlight' => true,
+                        'format' => 'dd.mm.yyyy',
+                    ]
+                ]),
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asDate($model->end_date, 'php:d.m.Y');
+                }
+            ],
+            [
+                'attribute' => 'created_at',
+                'filter' => \kartik\date\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'created_at',
+                    'language' => 'ru',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'todayHighlight' => true,
+                        'format' => 'dd.mm.yyyy',
+                    ]
+                ]),
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asDate($model->created_at, 'php:d.m.Y');
+                }
+            ],
+            [
+                'attribute' => 'updated_at',
+                'filter' => \kartik\date\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'updated_at',
+                    'language' => 'ru',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'todayHighlight' => true,
+                        'format' => 'dd.mm.yyyy',
+                    ]
+                ]),
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asDate($model->updated_at, 'php:d.m.Y');
+                }
+            ],
+            [
+                'attribute' => 'authorEmail',
+                'value' => function (\app\models\Activity $model) {
+                    if (isset($model->author)) {
+                        return $model->author->email;
+                    }
+                    return null;
+                }
+
+            ],
             'cycle:boolean',
             'main:boolean',
 

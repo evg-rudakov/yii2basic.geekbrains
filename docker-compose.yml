@@ -15,8 +15,11 @@ services:
     - ./:/var/www
     links:
     - db
+    - memcached
+
     depends_on:
     - db
+    - memcached
 
   db:
     container_name: mysql_geekbrains
@@ -32,3 +35,10 @@ services:
       MYSQL_PASSWORD: mysqluser
     volumes:
     - ./docker/database:/var/lib/mysql
+
+  memcached:
+    container_name: memcached_geekbrains
+    image: sameersbn/memcached:1.5.6
+    ports:
+    - 11212:11211
+    restart: always

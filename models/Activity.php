@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "activity".
@@ -12,9 +13,12 @@ use Yii;
  * @property string $body
  * @property int $start_date
  * @property int $end_date
- * @property int $user_id
+ * @property int $created_at
+ * @property int $updated_at
+ * @property int $author_id
  * @property boolean $cycle
  * @property boolean $main
+ * @property User $author
  * @property Calendar[] $calendarRecords
  * @property User[] $users
  */
@@ -30,19 +34,61 @@ class Activity extends \yii\db\ActiveRecord
         return 'activity';
     }
 
+
+    public function behaviors()
+    {
+        return [
+            'timestampBehavior' => [
+                'class' => \yii\behaviors\TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                    'value' => time(),
+                ],
+            ],
+            'cacheBehavior'=>[
+                'class' => \app\behaviors\ActiveRecordCache::class,
+                'cacheKeyName' => self::tableName(),
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['body', 'start_date', 'end_date','title' ], 'required'],
+            [['body', 'start_date', 'end_date', 'title', 'author_id'], 'required'],
             [['cycle', 'main'], 'boolean'],
-            [['user_id'], 'integer'],
+            [['author_id'], 'integer'],
             [['end_date'], 'checkEndDate'],
             [['start_date', 'end_date'], 'date', 'format' => 'php:d.m.Y'],
+            [['created_at', 'updated_at'],'integer'],
             [['title', 'body'], 'string', 'max' => 255],
         ];
+    }
+
+    public static function findOne($condition)
+    {
+        if (Yii::$app->cache->exists(self::tableName().'_'.$condition) === false){
+            Yii::info('В кеше по этому ключу ничего нет');
+            $result = parent::findOne($condition);
+            Yii::$app->cache->set(self::tableName().'_'.$condition, $result);
+        } else {
+            Yii::info('Кеш найден');
+            $result = Yii::$app->cache->get(self::tableName().'_'.$condition);
+        }
+
+        return $result;
+
+    }
+
+    public function beforeValidate()
+    {
+        $this->author_id = Yii::$app->user->identity->id;
+
+        return parent::beforeValidate();
     }
 
     public function checkEndDate($attr, $value)
@@ -54,6 +100,7 @@ class Activity extends \yii\db\ActiveRecord
             $this->addError($attr, 'Дата конца события, не может быть больше даты начала');
         }
     }
+
 
     public function beforeSave($insert)
     {
@@ -79,7 +126,7 @@ class Activity extends \yii\db\ActiveRecord
             'body' => 'Body',
             'start_date' => 'Start Date',
             'end_date' => 'End Date',
-            'user_id' => 'User ID',
+            'author_id' => 'User ID',
             'cycle' => 'Cycle',
             'main' => 'Main',
         ];
@@ -96,5 +143,10 @@ class Activity extends \yii\db\ActiveRecord
     public function getCalendarRecords()
     {
         return $this->hasMany(Calendar::class, ['activity_id' => 'id']);
+    }
+
+    public function getAuthor()
+    {
+        return $this->hasOne(User::class, ['id' => 'author_id']);
     }
 }
