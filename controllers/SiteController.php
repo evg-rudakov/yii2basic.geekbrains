@@ -118,6 +118,9 @@ class SiteController extends Controller
             $adminRole = Yii::$app->authManager->getRole('admin');
             Yii::$app->authManager->assign($adminRole, $user->id);
             echo 'админ уже есть';
+            echo 'админ уже есть';
+            echo 'админ уже есть';
+            echo 'админ уже есть';
         }
     }
 
