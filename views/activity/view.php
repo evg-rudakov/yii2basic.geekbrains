@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'title',
             'body',
+            'author.email',
             [
                 'attribute'=>'start_date',
                 'label'=>'Дата начала активности',

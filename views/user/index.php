@@ -25,16 +25,48 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            //'email:email',
-            //'created_at',
-            //'updated_at',
-            //'status',
+            'email:email',
+            [
+                'attribute' => 'created_at',
+                'filter' => \kartik\date\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'created_at',
+                    'language' => 'ru',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'todayHighlight' => true,
+                        'format' => 'dd.mm.yyyy',
+                    ]
+                ]),
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asDate($model->created_at, 'php:d.m.Y');
+                }
+            ],
+            [
+                'attribute' => 'updated_at',
+                'filter' => \kartik\date\DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'updated_at',
+                    'language' => 'ru',
+                    'pluginOptions' => [
+                        'autoclose' => true,
+                        'todayHighlight' => true,
+                        'format' => 'dd.mm.yyyy',
+                    ]
+                ]),
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asDate($model->updated_at, 'php:d.m.Y');
+                }
+            ],
+            [
+                'attribute' => 'status',
+                'filter' => \app\models\User::getStatuses(),
+                'value' => function (\app\models\User $model) {
+                    return \app\models\User::getStatuses()[$model->status];
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
