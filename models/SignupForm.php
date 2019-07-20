@@ -32,6 +32,7 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
+            ['phone', 'required'],
             ['username', 'unique', 'targetClass' => User::class, 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
             ['email', 'trim'],

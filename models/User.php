@@ -213,6 +213,12 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return $this->hasMany(Calendar::class, ['user_id' => 'id']);
     }
 
+    public function getActivities()
+    {
+        return $this->hasMany(Activity::class, ['id' => 'activity_id'])
+            ->via('calendarRecords');
+    }
+
 
 
 }

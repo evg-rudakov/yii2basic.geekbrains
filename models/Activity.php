@@ -34,6 +34,25 @@ class Activity extends \yii\db\ActiveRecord
         return 'activity';
     }
 
+
+    public function behaviors()
+    {
+        return [
+            'timestampBehavior' => [
+                'class' => \yii\behaviors\TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                    'value' => time(),
+                ],
+            ],
+            'cacheBehavior'=>[
+                'class' => \app\behaviors\ActiveRecordCache::class,
+                'cacheKeyName' => self::tableName(),
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -45,9 +64,24 @@ class Activity extends \yii\db\ActiveRecord
             [['author_id'], 'integer'],
             [['end_date'], 'checkEndDate'],
             [['start_date', 'end_date'], 'date', 'format' => 'php:d.m.Y'],
-            [['created_at', 'updated_at'], 'date', 'format' => 'php:d.m.Y'],
+            [['created_at', 'updated_at'],'integer'],
             [['title', 'body'], 'string', 'max' => 255],
         ];
+    }
+
+    public static function findOne($condition)
+    {
+        if (Yii::$app->cache->exists(self::tableName().'_'.$condition) === false){
+            Yii::info('В кеше по этому ключу ничего нет');
+            $result = parent::findOne($condition);
+            Yii::$app->cache->set(self::tableName().'_'.$condition, $result);
+        } else {
+            Yii::info('Кеш найден');
+            $result = Yii::$app->cache->get(self::tableName().'_'.$condition);
+        }
+
+        return $result;
+
     }
 
     public function beforeValidate()
@@ -67,19 +101,6 @@ class Activity extends \yii\db\ActiveRecord
         }
     }
 
-    public function behaviors()
-    {
-        return [
-            'timestampBehavior' => [
-                'class' => \yii\behaviors\TimestampBehavior::class,
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
-                    'value' => time(),
-                ],
-            ],
-        ];
-    }
 
     public function beforeSave($insert)
     {

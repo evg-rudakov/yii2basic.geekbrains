@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'authorEmail',
                 'value' => function (\app\models\Activity $model) {
-                    if (isset($model->author)){
+                    if (isset($model->author)) {
                         return $model->author->email;
                     }
                     return null;

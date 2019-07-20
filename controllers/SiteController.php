@@ -123,9 +123,12 @@ class SiteController extends Controller
 
     public function actionTest()
     {
-        $activity = Activity::find()->where(['id' => 13])->one();
-        var_dump($activity->users);
+        $activity = Activity::findOne(13);
+        $activity->title = 'eqweqweqweqweqwe';
+        $activity->save();
+        var_dump($activity);
         die();
+
     }
 
     public function actionSignUp()
