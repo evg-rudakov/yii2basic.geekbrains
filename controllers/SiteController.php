@@ -123,10 +123,10 @@ class SiteController extends Controller
 
     public function actionTest()
     {
-        $activity = Activity::findOne(13);
+        $activity = Activity::findOne(14);
         $activity->title = 'eqweqweqweqweqwe';
         $activity->save();
-        var_dump($activity);
+        var_dump($activity->errors);
         die();
 
     }

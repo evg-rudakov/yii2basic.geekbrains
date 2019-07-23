@@ -14,6 +14,8 @@ use yii\db\ActiveRecord;
 class ActiveRecordCache extends Behavior
 {
     public $cacheKeyName;
+
+
     public function events()
     {
         return [
@@ -25,7 +27,9 @@ class ActiveRecordCache extends Behavior
 
     public function deleteCache()
     {
-        $a=1;
-        \Yii::$app->cache->delete($this->cacheKeyName."_".$this->getPrimaryKey());
+
+        \Yii::$app->cache->delete($this->cacheKeyName . "_" . $this->owner->getPrimaryKey());
+
+        $this->owner->title = 'uviuvideluvideluvideldel';
     }
 }
