@@ -8,6 +8,10 @@ $config = [
     'language'=>'ru',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+
+    'defaultRoute' => 'calendar/index',
+//    'catchAll' => ['site/about'],
+
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -58,7 +62,11 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+
             'rules' => [
+                '<action:(about|contact|about)>' => 'site/<action>',
+                'activity/<id:\d+>'=>'activity/view',
+//                '/' => 'calendar/index',
             ],
         ],
         'studyComponent'=>[

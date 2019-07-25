@@ -22,7 +22,7 @@ class CalendarController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -36,13 +36,10 @@ class CalendarController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CalendarSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//        return $this->render('index');
+        if (YII_ENV_PROD){
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        }
     }
 
     /**
@@ -151,7 +148,7 @@ class CalendarController extends Controller
                 'startEditable' => true,
                 'durationEditable' => true,
                 'color' => 'red',
-                'url' => \yii\helpers\Url::to(['view', 'id'=>12])
+                'url' => \yii\helpers\Url::to(['view', 'id'=>1])
             ]),
             // No overlap
             new Event([

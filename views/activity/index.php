@@ -72,9 +72,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'dd.mm.yyyy',
                     ]
                 ]),
-                'value' => function ($model) {
-                    return Yii::$app->formatter->asDate($model->created_at, 'php:d.m.Y');
-                }
+//                'value' => function ($model) {
+//                    return Yii::$app->formatter->asDate($model->created_at, 'php:d.m.Y');
+//                }
             ],
             [
                 'attribute' => 'updated_at',
@@ -88,9 +88,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'dd.mm.yyyy',
                     ]
                 ]),
-                'value' => function ($model) {
-                    return Yii::$app->formatter->asDate($model->updated_at, 'php:d.m.Y');
-                }
+//                'value' => function ($model) {
+//                    return Yii::$app->formatter->asDate($model->updated_at, 'php:d.m.Y');
+//                }
             ],
             [
                 'attribute' => 'authorEmail',
