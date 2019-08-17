@@ -33,10 +33,19 @@ class Calendar extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'activity_id', 'created_at', 'updated_at'], 'required'],
+            [['user_id', 'activity_id'], 'required'],
             [['user_id', 'activity_id', 'created_at', 'updated_at'], 'integer'],
             [['activity_id'], 'exist', 'skipOnError' => true, 'targetClass' => Activity::class, 'targetAttribute' => ['activity_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'timeStamp' => [
+                'class' => \yii\behaviors\TimestampBehavior::class,
+            ],
         ];
     }
 

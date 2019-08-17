@@ -23,12 +23,12 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['index', 'login', 'contact'],
+                'only' => ['login', 'contact', 'index'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['index'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['simple'],
                     ],
                     [
                         'actions' => ['contact'],
@@ -97,8 +97,12 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @throws \yii\base\Exception
+     */
     public function actionAddAdmin() {
-        $user = User::find()->where(['username' => 'admin'])->one();
+        $userQuery = User::find()->where(['username' => 'admin']);
+        $user = $userQuery->one();
         if (empty($user)) {
             $user = new User();
             $user->username = 'admin';
@@ -116,14 +120,77 @@ class SiteController extends Controller
             $adminRole = Yii::$app->authManager->getRole('admin');
             Yii::$app->authManager->assign($adminRole, $user->id);
             echo 'админ уже есть';
+            var_dump($user);
+            var_dump($user->id);
+            var_dump($user->attributes['id']);
+            var_dump($user['id']);
+        }
+        die();
+    }
+
+    public function actionCreateActivity() {
+        $user = User::find()->where(['id'=>3])->one();
+
+        $activity = new Activity();
+        //$user = User::findOne(2);
+        $activity->user_id = $user->id;
+        $activity->title = 'test'.time();
+        $activity->body = 'body'.time();
+        $activity->end_date = time()+24*3600;
+        $activity->start_date = time();
+
+        if (!$activity->save()) {
+            var_dump($activity->errors);
+        }
+        die();
+    }
+
+    public function actionFillCalendar() {
+        $users = User::find()->all();
+
+        //SELECT * FROM user
+
+        foreach ($users as $user) {
+            $calendarRecord = new Calendar();
+            $calendarRecord->user_id = $user->id;
+            $calendarRecord->activity_id = 2;
+            if ($calendarRecord->save() === false){
+                var_dump($calendarRecord->id);
+                var_dump($calendarRecord->errors);
+            };
+
         }
     }
 
-    public function actionTest() {
-       $activity = Activity::find()->where(['id'=>13])->one();
-       var_dump($activity->users);
-die();
+    public function actionGetUsers()
+    {
+        $activity = Activity::findOne(2);
+        $users = [];
+
+        foreach ($activity->calendarRecords as $calendarRecord) {
+            $users[] = $calendarRecord->user;
+        }
+        var_dump($users);
+        $otherUsers = $activity->users;
+        var_dump($otherUsers);
+
     }
+
+    public function actionTest()
+    {
+        $activity = Activity::findOne(1);
+        $author = $activity->user;
+        var_dump($author);
+    }
+
+
+
+//    public function actionTest()
+//    {
+//        $activity = Activity::find()->where(['id' => 13])->one();
+//        var_dump($activity->users);
+//        die();
+//    }
 
     /**
      * Logout action.

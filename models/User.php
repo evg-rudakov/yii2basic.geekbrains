@@ -110,6 +110,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     /**
      * @return string
      */
+
     public function getAuthKey()
     {
         return $this->auth_key;

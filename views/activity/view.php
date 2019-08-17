@@ -1,15 +1,43 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: evg
- * Date: 03/07/2019
- * Time: 20:01
- */
 
-/** @var \app\models\Activity $model */
-/** @var array $testArray */
+use yii\helpers\Html;
+use yii\widgets\DetailView;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Activity */
+
+$this->title = $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Activities', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+\yii\web\YiiAsset::register($this);
 ?>
+<div class="activity-view">
 
-<h1>Активность: <?=$model->title?> </h1>
-<h1><?=$model->getAttributeLabel('title')?> : <?=$model->title?></h1>
-<?=$this->context->renderPartial('_data', ['model'=>$model, 'testArray'=>$testArray])?>
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Are you sure you want to delete this item?',
+                'method' => 'post',
+            ],
+        ]) ?>
+    </p>
+
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'id',
+            'title',
+            'body',
+            'start_date',
+            'end_date',
+            'user_id',
+            'cycle',
+            'main',
+        ],
+    ]) ?>
+
+</div>

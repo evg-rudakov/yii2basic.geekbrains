@@ -27,8 +27,8 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'authManager'=>[
-            'class'=>\yii\rbac\DbManager::class,
+        'authManager' => [
+            'class' => \yii\rbac\DbManager::class,
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

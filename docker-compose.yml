@@ -10,7 +10,7 @@ services:
       XDEBUG_CONFIG: remote_host=host.docker.internal
       PHP_IDE_CONFIG: serverName=localhost
     ports:
-    - 80:80
+    - 81:80
     volumes:
     - ./:/var/www
     links:
