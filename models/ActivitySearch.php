@@ -14,6 +14,8 @@ class ActivitySearch extends Activity
     /**
      * {@inheritdoc}
      */
+
+    public $authorEmail;
     public function rules()
     {
         return [
@@ -21,6 +23,7 @@ class ActivitySearch extends Activity
             [['start_date', 'end_date'], 'date', 'format' => 'php:d.m.Y'],
             [['cycle', 'main'], 'boolean'],
             [['title', 'body'], 'string'],
+            [['authorEmail'], 'string'],
         ];
     }
 
@@ -42,14 +45,14 @@ class ActivitySearch extends Activity
      */
     public function search($params)
     {
-        $query = Activity::find();
+        $query = Activity::find()->joinWith('author as author');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 3,
+                'pageSize' => 10,
             ],
         ]);
 
@@ -83,7 +86,9 @@ class ActivitySearch extends Activity
             ]);
         }
 
-
+        if (!empty($this->authorEmail)) {
+            $query->andWhere(['like', 'author.email', $this->authorEmail]);
+        }
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,

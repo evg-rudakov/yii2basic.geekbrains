@@ -17,6 +17,7 @@ use Yii;
  * @property boolean $main
  * @property Calendar[] $calendarRecords
  * @property User[] $users
+ * @property User $author
  */
 
 
@@ -96,5 +97,10 @@ class Activity extends \yii\db\ActiveRecord
     public function getCalendarRecords()
     {
         return $this->hasMany(Calendar::class, ['activity_id' => 'id']);
+    }
+
+    public function getAuthor()
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }

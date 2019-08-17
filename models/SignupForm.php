@@ -60,7 +60,6 @@ class SignupForm extends Model
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
-        $user->trigger(User::EVENT_USER_SET_NET_PASSWORD);
 
         $user->generateAuthKey();
 

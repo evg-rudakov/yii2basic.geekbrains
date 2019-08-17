@@ -40,12 +40,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'dd.mm.yyyy',
                     ]
                 ]),
-                'value' => function ($model) {
+                'value' => function (\app\models\Activity $model) {
                     return Yii::$app->formatter->asDate($model->start_date, 'php:d.m.Y');
                 }
             ],
             'end_date:datetime',
-            'user_id',
+            [
+                'attribute' => 'authorEmail',
+                'value'=> function (\app\models\Activity $model) {
+                    return $model->author->email.' '.$model->author->id;
+                }
+            ],
             'cycle:boolean',
             'main:boolean',
 

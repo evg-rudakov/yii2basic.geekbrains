@@ -37,9 +37,10 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
     public function addUserRole()
     {
-        $adminRole = Yii::$app->authManager->getRole('simple');
-        Yii::$app->authManager->assign($adminRole, $this->id);
+        $simple = Yii::$app->authManager->getRole('simple');
+        Yii::$app->authManager->assign($simple, $this->id);
     }
+
 
 
     public function afterSave($insert, $changedAttributes)
