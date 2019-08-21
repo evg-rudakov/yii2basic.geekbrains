@@ -125,8 +125,10 @@ class SiteController extends Controller
     {
         $activity = Activity::findOne(14);
         $activity->title = 'eqweqweqweqweqwe';
-        $activity->save();
-        return $this->render('test-cache', ['activity'=>$activity]);
+        $activity->start_date = time();
+        $activity->end_date = time();
+        $activity->save(false);
+        return $this->render('test-cache', ['activity'=>$activity, 'errors'=>$activity->errors]);
 
     }
 

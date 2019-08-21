@@ -44,10 +44,16 @@ class MailController extends Controller
 
     }
 
-    public function actionSendOut()
+    public function actionSendOut($userEmail = null)
     {
-        $activities = Activity::find()
-            ->all();
+
+        if (isset ($userEmail)){
+            $activities = Activity::find()->joinWith('users')->andWhere(['user.email'=>$userEmail])->all();
+        } else {
+            $activities = Activity::find()
+                ->all();
+        }
+
 
 
         foreach ($activities as $activity) {
