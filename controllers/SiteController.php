@@ -26,7 +26,7 @@ class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['logout', 'contact', 'index', 'about'],
+                        'actions' => ['logout', 'contact', 'index', 'about', 'test-cache'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -121,13 +121,12 @@ class SiteController extends Controller
         }
     }
 
-    public function actionTest()
+    public function actionTestCache()
     {
         $activity = Activity::findOne(14);
         $activity->title = 'eqweqweqweqweqwe';
         $activity->save();
-        var_dump($activity->errors);
-        die();
+        return $this->render('test-cache', ['activity'=>$activity]);
 
     }
 

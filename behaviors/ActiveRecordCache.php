@@ -27,9 +27,7 @@ class ActiveRecordCache extends Behavior
 
     public function deleteCache()
     {
-
         \Yii::$app->cache->delete($this->cacheKeyName . "_" . $this->owner->getPrimaryKey());
 
-        $this->owner->title = 'uviuvideluvideluvideldel';
     }
 }

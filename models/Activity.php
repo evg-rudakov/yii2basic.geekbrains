@@ -71,7 +71,7 @@ class Activity extends \yii\db\ActiveRecord
 
     public static function findOne($condition)
     {
-        if (Yii::$app->cache->exists(self::tableName().'_'.$condition) === false){
+        if (Yii::$app->cache->exists(self::tableName().'_'.$condition) === false) {
             Yii::info('В кеше по этому ключу ничего нет');
             $result = parent::findOne($condition);
             Yii::$app->cache->set(self::tableName().'_'.$condition, $result);

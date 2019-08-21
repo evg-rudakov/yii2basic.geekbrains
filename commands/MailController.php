@@ -16,21 +16,32 @@ class MailController extends Controller
     public $message;
     public $user;
 
+    public $debug = YII_ENV_DEV ? true : false;
+
     public function options($actionID)
     {
         $parentOptions = parent::options($actionID);
         $options = [
             '-m' => 'message',
-            '-u' => 'user'
+            '-u' => 'user',
+            '-d' => 'debug'
         ];
 
         return array_merge($parentOptions, $options);
     }
 
     public function actionTest($param1, $param2) {
-        echo "param1:".$param1."\r\n";
-        echo "param2:".$param2."\r\n";
-        echo $this->message. ' '. $this->user."\r\n";
+        $this->alert("param1:".$param1);
+        $this->alert("param2:".$param2);
+        $this->alert($this->message. ' '. $this->user);
+    }
+
+    public function alert($message)
+    {
+        if ($this->debug === true) {
+            echo $message . "\r\n";
+        }
+
     }
 
     public function actionSendOut()
@@ -38,12 +49,12 @@ class MailController extends Controller
         $activities = Activity::find()
             ->all();
 
-        var_dump(count($activities));
 
         foreach ($activities as $activity) {
 
             foreach ($activity->users as $user) {
-                \Yii::$app->mailer
+
+                $mailer = \Yii::$app->mailer
                     ->compose(
                         'activity/notification-html', [
                             'activity' => $activity
@@ -52,8 +63,13 @@ class MailController extends Controller
                     ->setFrom('noreply@geekbrains.yii2basic.ru')
                     ->setSubject('Ваши планы на сегодня')
                     ->setTo($user->email)
-                    ->setCharset('UTF-8')
-                    ->send();
+                    ->setCharset('UTF-8');
+
+                    if ($mailer->send()) {
+                        $this->alert($user->email.' получил письмо'."\r\n");
+                    } else {
+                        $this->alert($user->email.' получил не письмо'."\r\n");
+                    }
             }
         }
 
