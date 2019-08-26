@@ -35,7 +35,7 @@ class ActivityController extends Controller
                     [
                         'actions' => ['index', 'create', 'update', 'view', 'delete'],
                         'allow' => true,
-                        'roles' => ['admin'],
+                        'roles' => ['@'],
                     ],
                 ],
             ],

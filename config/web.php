@@ -64,9 +64,8 @@ $config = [
             'showScriptName' => false,
 
             'rules' => [
-                '<action:(about|contact|about)>' => 'site/<action>',
+                '<action:(about|contact)>' => 'site/<action>',
                 'activity/<id:\d+>'=>'activity/view',
-//                '/' => 'calendar/index',
             ],
         ],
         'studyComponent'=>[
@@ -78,7 +77,7 @@ $config = [
             'class' => app\modules\statistic\Module::class,
         ],
     ],
-    'params' => $params,
+    'params' => $params
 ];
 
 if (YII_ENV_DEV) {

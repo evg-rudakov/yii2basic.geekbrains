@@ -25,24 +25,9 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
 
-    public $jsOptions = ['position'=>View::POS_HEAD];
-
-    public $js = [
-        'js/new.js'
-    ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];
 
-    public function init()
-    {
-        parent::init();
-        $isNeedCss = true;
-
-        if (!$isNeedCss) {
-            $this->css[] = [];
-        }
-
-    }
 }

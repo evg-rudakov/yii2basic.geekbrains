@@ -16,15 +16,11 @@ class CalendarAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
 
-    public $css = [
-        'css/site.css',
-    ];
-
-    public $jsOptions = ['position'=>View::POS_END];
-
     public $js = [
-        'js/new.js'
+
+        'js/new1.js',
     ];
+
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',

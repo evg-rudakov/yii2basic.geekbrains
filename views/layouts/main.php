@@ -10,7 +10,6 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
-\app\assets\CalendarAsset::register($this);
 \app\assets\AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>

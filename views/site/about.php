@@ -16,3 +16,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <code><?= __FILE__ ?></code>
 </div>
+
+<br/>
+<?=\yii\helpers\Url::to(['/get-records', 'id'=>123, 'start'=>123123, 'end'=>32323])?> <br/>
+<?=\yii\helpers\Url::to(['/calendar/get-records', 'id'=>123, 'start'=>123123, 'end'=>32323])?><br/>
+<?=\yii\helpers\Url::to(['/calendar/get-records/index', 'id'=>123, 'start'=>123123, 'end'=>32323])?><br/>
+<?=\yii\helpers\Url::to(['', 'id'=>123, 'start'=>123123, 'end'=>32323])?><br/>
+<hr/>
+<?=\yii\helpers\Url::home()?><br/>
+<?=\yii\helpers\Url::base()?><br/>
+<?=\yii\helpers\Url::canonical()?><br/>

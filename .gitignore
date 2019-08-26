@@ -32,4 +32,6 @@ tests/_support/_generated
 #vagrant folder
 /.vagrant
 /docker/database/
-!/config/web-local.php
+/config/web-local.php
+/config/db-local.php
+/web/assets/
