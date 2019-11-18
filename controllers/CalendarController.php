@@ -155,53 +155,53 @@ class CalendarController extends Controller
         }
 
 
-//        $events = [
-//            new Event([c
-//                'title' => 'Appointment #' . rand(1, 999),
-//                'start' => '2016-03-18T14:00:00',
-//            ]),
-//            // Everything editable
-//            new Event([
-//                'id' => uniqid(),
-//                'title' => 'Appointment #' . rand(1, 999),
-//                'start' => '2019-07-17T12:30:00',
-//                'end' => '2019-07-24T13:30:00',
-//                'editable' => true,
-//                'startEditable' => true,
-//                'durationEditable' => true,
-//                'color' => 'red',
-//                'url' => \yii\helpers\Url::to(['view', 'id' => 1])
-//            ]),
-//            // No overlap
-//            new Event([
-//                'id' => uniqid(),
-//                'title' => 'Appointment #' . rand(1, 999),
-//                'start' => '2019-03-17T12:30:00',
-//                'end' => '2019-09-24T13:30:00',
-//                'overlap' => false, // Overlap is default true
-//                'editable' => true,
-//                'startEditable' => true,
-//                'durationEditable' => true,
-//            ]),
-//            // Only duration editable
-//            new Event([
-//                'id' => uniqid(),
-//                'title' => 'Appointment #' . rand(1, 999),
-//                'start' => '2016-03-16T11:00:00',
-//                'end' => '2016-03-16T11:30:00',
-//                'startEditable' => false,
-//                'durationEditable' => true,
-//            ]),
-//            // Only start editable
-//            new Event([
-//                'id' => uniqid(),
-//                'title' => 'Appointment #' . rand(1, 999),
-//                'start' => '2016-03-15T14:00:00',
-//                'end' => '2016-03-15T15:30:00',
-//                'startEditable' => true,
-//                'durationEditable' => false,
-//            ]),
-//        ];
+        $events = [
+            new Event([
+                'title' => 'Appointment #' . rand(1, 999),
+                'start' => '2016-03-18T14:00:00',
+            ]),
+            // Everything editable
+            new Event([
+                'id' => uniqid(),
+                'title' => 'Appointment #' . rand(1, 999),
+                'start' => '2019-07-17T12:30:00',
+                'end' => '2019-07-24T13:30:00',
+                'editable' => true,
+                'startEditable' => true,
+                'durationEditable' => true,
+                'color' => 'red',
+                'url' => \yii\helpers\Url::to(['view', 'id' => 1])
+            ]),
+            // No overlap
+            new Event([
+                'id' => uniqid(),
+                'title' => 'Appointment #' . rand(1, 999),
+                'start' => '2019-03-17T12:30:00',
+                'end' => '2019-09-24T13:30:00',
+                'overlap' => false, // Overlap is default true
+                'editable' => true,
+                'startEditable' => true,
+                'durationEditable' => true,
+            ]),
+            // Only duration editable
+            new Event([
+                'id' => uniqid(),
+                'title' => 'Appointment #' . rand(1, 999),
+                'start' => '2016-03-16T11:00:00',
+                'end' => '2016-03-16T11:30:00',
+                'startEditable' => false,
+                'durationEditable' => true,
+            ]),
+            // Only start editable
+            new Event([
+                'id' => uniqid(),
+                'title' => 'Appointment #' . rand(1, 999),
+                'start' => '2016-03-15T14:00:00',
+                'end' => '2016-03-15T15:30:00',
+                'startEditable' => true,
+                'durationEditable' => false,
+            ]),
+        ];
 
         return $records;
     }
